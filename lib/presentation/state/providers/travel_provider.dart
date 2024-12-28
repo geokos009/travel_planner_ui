@@ -5,7 +5,6 @@ import '../../../data/models/itinerary_model.dart';
 import '../../../data/models/user_preferences.dart';
 import '../../../data/repositories/travel_repository_impl.dart';
 import '../../../domain/repositories/travel_repository.dart';
-import '../notifiers/selected_attractions_notifier.dart';
 import '../notifiers/user_preferences_notifier.dart';
 
 // Repository provider
@@ -25,17 +24,25 @@ final destinationResearchProvider = FutureProvider.family<ResearchModel, String>
 );
 
 // Selected regions provider
-final selectedRegionsProvider = StateProvider<List<Region>>((ref) => []);
+final selectedRegionsProvider = StateNotifierProvider<SelectedRegionsNotifier, List<Region>>((ref) {
+  return SelectedRegionsNotifier();
+});
 
-// Selected attractions provider
-final selectedAttractionsProvider = StateNotifierProvider<SelectedAttractionsNotifier, List<SelectedAttraction>>(
-  (ref) => SelectedAttractionsNotifier(),
-);
+class SelectedRegionsNotifier extends StateNotifier<List<Region>> {
+  SelectedRegionsNotifier() : super([]);
+
+  void toggleRegion(Region region) {
+    state = state.contains(region) 
+      ? state.where((r) => r != region).toList()
+      : [...state, region];
+  }
+}
 
 // User preferences provider
-final userPreferencesProvider = StateNotifierProvider<UserPreferencesNotifier, UserPreferences?>(
-  (ref) => UserPreferencesNotifier(ref.watch(travelRepositoryProvider)),
-);
+final userPreferencesProvider = StateNotifierProvider<UserPreferencesNotifier, UserPreferences?>((ref) {
+  final repository = ref.watch(travelRepositoryProvider);
+  return UserPreferencesNotifier(repository);
+});
 
 // Itinerary provider
 final itineraryProvider = FutureProvider.family<ItineraryModel, UserPreferences>(
@@ -46,3 +53,24 @@ final itineraryProvider = FutureProvider.family<ItineraryModel, UserPreferences>
     return repository.createItinerary(destination, preferences);
   },
 );
+
+// Selected attractions provider
+final selectedAttractionsProvider = StateNotifierProvider<SelectedAttractionsNotifier, Set<Attraction>>((ref) {
+  return SelectedAttractionsNotifier();
+});
+
+class SelectedAttractionsNotifier extends StateNotifier<Set<Attraction>> {
+  SelectedAttractionsNotifier() : super({});
+
+  void toggleAttraction(Attraction attraction) {
+    if (state.contains(attraction)) {
+      state = Set.from(state)..remove(attraction);
+    } else {
+      state = Set.from(state)..add(attraction);
+    }
+  }
+
+  void clearAttractions() {
+    state = {};
+  }
+}

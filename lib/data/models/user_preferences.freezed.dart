@@ -20,13 +20,18 @@ UserPreferences _$UserPreferencesFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserPreferences {
+  @JsonKey(name: 'trip_duration')
   String get tripDuration => throw _privateConstructorUsedError;
+  @JsonKey(name: 'trip_style')
   String get tripStyle => throw _privateConstructorUsedError;
+  @JsonKey(name: 'budget_level')
   String get budgetLevel => throw _privateConstructorUsedError;
+  @JsonKey(name: 'base_locations')
   List<BaseLocation> get baseLocations => throw _privateConstructorUsedError;
-  EntryPoint get entryPoint =>
-      throw _privateConstructorUsedError; // This now references the imported EntryPoint
-  List<SelectedAttraction> get selectedAttractions =>
+  @JsonKey(name: 'entry_point')
+  EntryPoint get entryPoint => throw _privateConstructorUsedError;
+  @JsonKey(name: 'selected_attractions')
+  List<Attraction> get selectedAttractions =>
       throw _privateConstructorUsedError;
 
   /// Serializes this UserPreferences to a JSON map.
@@ -46,12 +51,13 @@ abstract class $UserPreferencesCopyWith<$Res> {
       _$UserPreferencesCopyWithImpl<$Res, UserPreferences>;
   @useResult
   $Res call(
-      {String tripDuration,
-      String tripStyle,
-      String budgetLevel,
-      List<BaseLocation> baseLocations,
-      EntryPoint entryPoint,
-      List<SelectedAttraction> selectedAttractions});
+      {@JsonKey(name: 'trip_duration') String tripDuration,
+      @JsonKey(name: 'trip_style') String tripStyle,
+      @JsonKey(name: 'budget_level') String budgetLevel,
+      @JsonKey(name: 'base_locations') List<BaseLocation> baseLocations,
+      @JsonKey(name: 'entry_point') EntryPoint entryPoint,
+      @JsonKey(name: 'selected_attractions')
+      List<Attraction> selectedAttractions});
 
   $EntryPointCopyWith<$Res> get entryPoint;
 }
@@ -102,7 +108,7 @@ class _$UserPreferencesCopyWithImpl<$Res, $Val extends UserPreferences>
       selectedAttractions: null == selectedAttractions
           ? _value.selectedAttractions
           : selectedAttractions // ignore: cast_nullable_to_non_nullable
-              as List<SelectedAttraction>,
+              as List<Attraction>,
     ) as $Val);
   }
 
@@ -126,12 +132,13 @@ abstract class _$$UserPreferencesImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String tripDuration,
-      String tripStyle,
-      String budgetLevel,
-      List<BaseLocation> baseLocations,
-      EntryPoint entryPoint,
-      List<SelectedAttraction> selectedAttractions});
+      {@JsonKey(name: 'trip_duration') String tripDuration,
+      @JsonKey(name: 'trip_style') String tripStyle,
+      @JsonKey(name: 'budget_level') String budgetLevel,
+      @JsonKey(name: 'base_locations') List<BaseLocation> baseLocations,
+      @JsonKey(name: 'entry_point') EntryPoint entryPoint,
+      @JsonKey(name: 'selected_attractions')
+      List<Attraction> selectedAttractions});
 
   @override
   $EntryPointCopyWith<$Res> get entryPoint;
@@ -181,7 +188,7 @@ class __$$UserPreferencesImplCopyWithImpl<$Res>
       selectedAttractions: null == selectedAttractions
           ? _value._selectedAttractions
           : selectedAttractions // ignore: cast_nullable_to_non_nullable
-              as List<SelectedAttraction>,
+              as List<Attraction>,
     ));
   }
 }
@@ -190,12 +197,14 @@ class __$$UserPreferencesImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserPreferencesImpl implements _UserPreferences {
   const _$UserPreferencesImpl(
-      {required this.tripDuration,
-      required this.tripStyle,
-      required this.budgetLevel,
+      {@JsonKey(name: 'trip_duration') required this.tripDuration,
+      @JsonKey(name: 'trip_style') required this.tripStyle,
+      @JsonKey(name: 'budget_level') required this.budgetLevel,
+      @JsonKey(name: 'base_locations')
       required final List<BaseLocation> baseLocations,
-      required this.entryPoint,
-      required final List<SelectedAttraction> selectedAttractions})
+      @JsonKey(name: 'entry_point') required this.entryPoint,
+      @JsonKey(name: 'selected_attractions')
+      required final List<Attraction> selectedAttractions})
       : _baseLocations = baseLocations,
         _selectedAttractions = selectedAttractions;
 
@@ -203,13 +212,17 @@ class _$UserPreferencesImpl implements _UserPreferences {
       _$$UserPreferencesImplFromJson(json);
 
   @override
+  @JsonKey(name: 'trip_duration')
   final String tripDuration;
   @override
+  @JsonKey(name: 'trip_style')
   final String tripStyle;
   @override
+  @JsonKey(name: 'budget_level')
   final String budgetLevel;
   final List<BaseLocation> _baseLocations;
   @override
+  @JsonKey(name: 'base_locations')
   List<BaseLocation> get baseLocations {
     if (_baseLocations is EqualUnmodifiableListView) return _baseLocations;
     // ignore: implicit_dynamic_type
@@ -217,12 +230,12 @@ class _$UserPreferencesImpl implements _UserPreferences {
   }
 
   @override
+  @JsonKey(name: 'entry_point')
   final EntryPoint entryPoint;
-// This now references the imported EntryPoint
-  final List<SelectedAttraction> _selectedAttractions;
-// This now references the imported EntryPoint
+  final List<Attraction> _selectedAttractions;
   @override
-  List<SelectedAttraction> get selectedAttractions {
+  @JsonKey(name: 'selected_attractions')
+  List<Attraction> get selectedAttractions {
     if (_selectedAttractions is EqualUnmodifiableListView)
       return _selectedAttractions;
     // ignore: implicit_dynamic_type
@@ -283,412 +296,42 @@ class _$UserPreferencesImpl implements _UserPreferences {
 
 abstract class _UserPreferences implements UserPreferences {
   const factory _UserPreferences(
-          {required final String tripDuration,
-          required final String tripStyle,
-          required final String budgetLevel,
+          {@JsonKey(name: 'trip_duration') required final String tripDuration,
+          @JsonKey(name: 'trip_style') required final String tripStyle,
+          @JsonKey(name: 'budget_level') required final String budgetLevel,
+          @JsonKey(name: 'base_locations')
           required final List<BaseLocation> baseLocations,
-          required final EntryPoint entryPoint,
-          required final List<SelectedAttraction> selectedAttractions}) =
+          @JsonKey(name: 'entry_point') required final EntryPoint entryPoint,
+          @JsonKey(name: 'selected_attractions')
+          required final List<Attraction> selectedAttractions}) =
       _$UserPreferencesImpl;
 
   factory _UserPreferences.fromJson(Map<String, dynamic> json) =
       _$UserPreferencesImpl.fromJson;
 
   @override
+  @JsonKey(name: 'trip_duration')
   String get tripDuration;
   @override
+  @JsonKey(name: 'trip_style')
   String get tripStyle;
   @override
+  @JsonKey(name: 'budget_level')
   String get budgetLevel;
   @override
+  @JsonKey(name: 'base_locations')
   List<BaseLocation> get baseLocations;
   @override
-  EntryPoint get entryPoint; // This now references the imported EntryPoint
+  @JsonKey(name: 'entry_point')
+  EntryPoint get entryPoint;
   @override
-  List<SelectedAttraction> get selectedAttractions;
+  @JsonKey(name: 'selected_attractions')
+  List<Attraction> get selectedAttractions;
 
   /// Create a copy of UserPreferences
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserPreferencesImplCopyWith<_$UserPreferencesImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-BaseLocation _$BaseLocationFromJson(Map<String, dynamic> json) {
-  return _BaseLocation.fromJson(json);
-}
-
-/// @nodoc
-mixin _$BaseLocation {
-  String get location => throw _privateConstructorUsedError;
-  int get nights => throw _privateConstructorUsedError;
-
-  /// Serializes this BaseLocation to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of BaseLocation
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $BaseLocationCopyWith<BaseLocation> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $BaseLocationCopyWith<$Res> {
-  factory $BaseLocationCopyWith(
-          BaseLocation value, $Res Function(BaseLocation) then) =
-      _$BaseLocationCopyWithImpl<$Res, BaseLocation>;
-  @useResult
-  $Res call({String location, int nights});
-}
-
-/// @nodoc
-class _$BaseLocationCopyWithImpl<$Res, $Val extends BaseLocation>
-    implements $BaseLocationCopyWith<$Res> {
-  _$BaseLocationCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of BaseLocation
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? location = null,
-    Object? nights = null,
-  }) {
-    return _then(_value.copyWith(
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as String,
-      nights: null == nights
-          ? _value.nights
-          : nights // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$BaseLocationImplCopyWith<$Res>
-    implements $BaseLocationCopyWith<$Res> {
-  factory _$$BaseLocationImplCopyWith(
-          _$BaseLocationImpl value, $Res Function(_$BaseLocationImpl) then) =
-      __$$BaseLocationImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String location, int nights});
-}
-
-/// @nodoc
-class __$$BaseLocationImplCopyWithImpl<$Res>
-    extends _$BaseLocationCopyWithImpl<$Res, _$BaseLocationImpl>
-    implements _$$BaseLocationImplCopyWith<$Res> {
-  __$$BaseLocationImplCopyWithImpl(
-      _$BaseLocationImpl _value, $Res Function(_$BaseLocationImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of BaseLocation
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? location = null,
-    Object? nights = null,
-  }) {
-    return _then(_$BaseLocationImpl(
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as String,
-      nights: null == nights
-          ? _value.nights
-          : nights // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$BaseLocationImpl implements _BaseLocation {
-  const _$BaseLocationImpl({required this.location, required this.nights});
-
-  factory _$BaseLocationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BaseLocationImplFromJson(json);
-
-  @override
-  final String location;
-  @override
-  final int nights;
-
-  @override
-  String toString() {
-    return 'BaseLocation(location: $location, nights: $nights)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BaseLocationImpl &&
-            (identical(other.location, location) ||
-                other.location == location) &&
-            (identical(other.nights, nights) || other.nights == nights));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, location, nights);
-
-  /// Create a copy of BaseLocation
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$BaseLocationImplCopyWith<_$BaseLocationImpl> get copyWith =>
-      __$$BaseLocationImplCopyWithImpl<_$BaseLocationImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$BaseLocationImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _BaseLocation implements BaseLocation {
-  const factory _BaseLocation(
-      {required final String location,
-      required final int nights}) = _$BaseLocationImpl;
-
-  factory _BaseLocation.fromJson(Map<String, dynamic> json) =
-      _$BaseLocationImpl.fromJson;
-
-  @override
-  String get location;
-  @override
-  int get nights;
-
-  /// Create a copy of BaseLocation
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BaseLocationImplCopyWith<_$BaseLocationImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-SelectedAttraction _$SelectedAttractionFromJson(Map<String, dynamic> json) {
-  return _SelectedAttraction.fromJson(json);
-}
-
-/// @nodoc
-mixin _$SelectedAttraction {
-  String get name => throw _privateConstructorUsedError;
-  String get category => throw _privateConstructorUsedError;
-  String get duration => throw _privateConstructorUsedError;
-  String get bestTiming => throw _privateConstructorUsedError;
-
-  /// Serializes this SelectedAttraction to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of SelectedAttraction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $SelectedAttractionCopyWith<SelectedAttraction> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $SelectedAttractionCopyWith<$Res> {
-  factory $SelectedAttractionCopyWith(
-          SelectedAttraction value, $Res Function(SelectedAttraction) then) =
-      _$SelectedAttractionCopyWithImpl<$Res, SelectedAttraction>;
-  @useResult
-  $Res call({String name, String category, String duration, String bestTiming});
-}
-
-/// @nodoc
-class _$SelectedAttractionCopyWithImpl<$Res, $Val extends SelectedAttraction>
-    implements $SelectedAttractionCopyWith<$Res> {
-  _$SelectedAttractionCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of SelectedAttraction
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? category = null,
-    Object? duration = null,
-    Object? bestTiming = null,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
-      duration: null == duration
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
-              as String,
-      bestTiming: null == bestTiming
-          ? _value.bestTiming
-          : bestTiming // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$SelectedAttractionImplCopyWith<$Res>
-    implements $SelectedAttractionCopyWith<$Res> {
-  factory _$$SelectedAttractionImplCopyWith(_$SelectedAttractionImpl value,
-          $Res Function(_$SelectedAttractionImpl) then) =
-      __$$SelectedAttractionImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String name, String category, String duration, String bestTiming});
-}
-
-/// @nodoc
-class __$$SelectedAttractionImplCopyWithImpl<$Res>
-    extends _$SelectedAttractionCopyWithImpl<$Res, _$SelectedAttractionImpl>
-    implements _$$SelectedAttractionImplCopyWith<$Res> {
-  __$$SelectedAttractionImplCopyWithImpl(_$SelectedAttractionImpl _value,
-      $Res Function(_$SelectedAttractionImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of SelectedAttraction
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? category = null,
-    Object? duration = null,
-    Object? bestTiming = null,
-  }) {
-    return _then(_$SelectedAttractionImpl(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
-      duration: null == duration
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
-              as String,
-      bestTiming: null == bestTiming
-          ? _value.bestTiming
-          : bestTiming // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$SelectedAttractionImpl implements _SelectedAttraction {
-  const _$SelectedAttractionImpl(
-      {required this.name,
-      required this.category,
-      required this.duration,
-      required this.bestTiming});
-
-  factory _$SelectedAttractionImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SelectedAttractionImplFromJson(json);
-
-  @override
-  final String name;
-  @override
-  final String category;
-  @override
-  final String duration;
-  @override
-  final String bestTiming;
-
-  @override
-  String toString() {
-    return 'SelectedAttraction(name: $name, category: $category, duration: $duration, bestTiming: $bestTiming)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SelectedAttractionImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
-            (identical(other.duration, duration) ||
-                other.duration == duration) &&
-            (identical(other.bestTiming, bestTiming) ||
-                other.bestTiming == bestTiming));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, category, duration, bestTiming);
-
-  /// Create a copy of SelectedAttraction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SelectedAttractionImplCopyWith<_$SelectedAttractionImpl> get copyWith =>
-      __$$SelectedAttractionImplCopyWithImpl<_$SelectedAttractionImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SelectedAttractionImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _SelectedAttraction implements SelectedAttraction {
-  const factory _SelectedAttraction(
-      {required final String name,
-      required final String category,
-      required final String duration,
-      required final String bestTiming}) = _$SelectedAttractionImpl;
-
-  factory _SelectedAttraction.fromJson(Map<String, dynamic> json) =
-      _$SelectedAttractionImpl.fromJson;
-
-  @override
-  String get name;
-  @override
-  String get category;
-  @override
-  String get duration;
-  @override
-  String get bestTiming;
-
-  /// Create a copy of SelectedAttraction
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SelectedAttractionImplCopyWith<_$SelectedAttractionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,6 +1,7 @@
 // lib/data/models/user_preferences.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'research_model.dart';  // Add this import for EntryPoint
+import 'research_model.dart';
+import 'base_location.dart';
 
 part 'user_preferences.freezed.dart';
 part 'user_preferences.g.dart';
@@ -8,38 +9,14 @@ part 'user_preferences.g.dart';
 @freezed
 class UserPreferences with _$UserPreferences {
   const factory UserPreferences({
-    required String tripDuration,
-    required String tripStyle,
-    required String budgetLevel,
-    required List<BaseLocation> baseLocations,
-    required EntryPoint entryPoint,  // This now references the imported EntryPoint
-    required List<SelectedAttraction> selectedAttractions,
+    @JsonKey(name: 'trip_duration') required String tripDuration,
+    @JsonKey(name: 'trip_style') required String tripStyle,
+    @JsonKey(name: 'budget_level') required String budgetLevel,
+    @JsonKey(name: 'base_locations') required List<BaseLocation> baseLocations,
+    @JsonKey(name: 'entry_point') required EntryPoint entryPoint,
+    @JsonKey(name: 'selected_attractions') required List<Attraction> selectedAttractions,
   }) = _UserPreferences;
 
   factory UserPreferences.fromJson(Map<String, dynamic> json) =>
       _$UserPreferencesFromJson(json);
-}
-
-@freezed
-class BaseLocation with _$BaseLocation {
-  const factory BaseLocation({
-    required String location,
-    required int nights,
-  }) = _BaseLocation;
-
-  factory BaseLocation.fromJson(Map<String, dynamic> json) =>
-      _$BaseLocationFromJson(json);
-}
-
-@freezed
-class SelectedAttraction with _$SelectedAttraction {
-  const factory SelectedAttraction({
-    required String name,
-    required String category,
-    required String duration,
-    required String bestTiming,
-  }) = _SelectedAttraction;
-
-  factory SelectedAttraction.fromJson(Map<String, dynamic> json) =>
-      _$SelectedAttractionFromJson(json);
 }

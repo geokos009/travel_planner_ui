@@ -9,56 +9,26 @@ part of 'user_preferences.dart';
 _$UserPreferencesImpl _$$UserPreferencesImplFromJson(
         Map<String, dynamic> json) =>
     _$UserPreferencesImpl(
-      tripDuration: json['tripDuration'] as String,
-      tripStyle: json['tripStyle'] as String,
-      budgetLevel: json['budgetLevel'] as String,
-      baseLocations: (json['baseLocations'] as List<dynamic>)
+      tripDuration: json['trip_duration'] as String,
+      tripStyle: json['trip_style'] as String,
+      budgetLevel: json['budget_level'] as String,
+      baseLocations: (json['base_locations'] as List<dynamic>)
           .map((e) => BaseLocation.fromJson(e as Map<String, dynamic>))
           .toList(),
       entryPoint:
-          EntryPoint.fromJson(json['entryPoint'] as Map<String, dynamic>),
-      selectedAttractions: (json['selectedAttractions'] as List<dynamic>)
-          .map((e) => SelectedAttraction.fromJson(e as Map<String, dynamic>))
+          EntryPoint.fromJson(json['entry_point'] as Map<String, dynamic>),
+      selectedAttractions: (json['selected_attractions'] as List<dynamic>)
+          .map((e) => Attraction.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$$UserPreferencesImplToJson(
         _$UserPreferencesImpl instance) =>
     <String, dynamic>{
-      'tripDuration': instance.tripDuration,
-      'tripStyle': instance.tripStyle,
-      'budgetLevel': instance.budgetLevel,
-      'baseLocations': instance.baseLocations,
-      'entryPoint': instance.entryPoint,
-      'selectedAttractions': instance.selectedAttractions,
-    };
-
-_$BaseLocationImpl _$$BaseLocationImplFromJson(Map<String, dynamic> json) =>
-    _$BaseLocationImpl(
-      location: json['location'] as String,
-      nights: (json['nights'] as num).toInt(),
-    );
-
-Map<String, dynamic> _$$BaseLocationImplToJson(_$BaseLocationImpl instance) =>
-    <String, dynamic>{
-      'location': instance.location,
-      'nights': instance.nights,
-    };
-
-_$SelectedAttractionImpl _$$SelectedAttractionImplFromJson(
-        Map<String, dynamic> json) =>
-    _$SelectedAttractionImpl(
-      name: json['name'] as String,
-      category: json['category'] as String,
-      duration: json['duration'] as String,
-      bestTiming: json['bestTiming'] as String,
-    );
-
-Map<String, dynamic> _$$SelectedAttractionImplToJson(
-        _$SelectedAttractionImpl instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'category': instance.category,
-      'duration': instance.duration,
-      'bestTiming': instance.bestTiming,
+      'trip_duration': instance.tripDuration,
+      'trip_style': instance.tripStyle,
+      'budget_level': instance.budgetLevel,
+      'base_locations': instance.baseLocations,
+      'entry_point': instance.entryPoint,
+      'selected_attractions': instance.selectedAttractions,
     };

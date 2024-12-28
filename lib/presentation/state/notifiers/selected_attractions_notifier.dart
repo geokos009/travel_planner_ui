@@ -1,6 +1,6 @@
 // lib/presentation/state/notifiers/selected_attractions_notifier.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../data/models/user_preferences.dart';
+import '../../../data/models/selected_attraction.dart';
 
 class SelectedAttractionsNotifier extends StateNotifier<List<SelectedAttraction>> {
   SelectedAttractionsNotifier() : super([]);

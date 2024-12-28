@@ -4,17 +4,26 @@ import '../../../data/models/user_preferences.dart';
 import '../../../domain/repositories/travel_repository.dart';
 
 class UserPreferencesNotifier extends StateNotifier<UserPreferences?> {
-  final TravelRepository _repository;
+  final TravelRepository repository;
 
-  UserPreferencesNotifier(this._repository) : super(null);
+  UserPreferencesNotifier(this.repository) : super(null);
 
   Future<void> updatePreferences(UserPreferences preferences) async {
-    await _repository.saveUserPreferences(preferences);
     state = preferences;
+    try {
+      await repository.saveUserPreferences(preferences);
+    } catch (e) {
+      print('Error saving preferences: $e');
+    }
   }
 
   Future<void> loadPreferences() async {
-    state = await _repository.getUserPreferences();
+    try {
+      final preferences = await repository.getUserPreferences();
+      state = preferences;
+    } catch (e) {
+      print('Error loading preferences: $e');
+    }
   }
 
   void clearPreferences() {
