@@ -235,7 +235,7 @@ class _PreferencesScreenState extends ConsumerState<PreferencesScreen> {
               children: [
                 const Text('Select your arrival point:'),
                 const SizedBox(height: 8),
-                ...research.data.research.entryPoints.map((entryPoint) {
+                ...research.data.research.data.research.entryPoints.map((entryPoint) {
                   return RadioListTile<EntryPoint>(
                     title: Text(entryPoint.name),
                     subtitle: Text('${entryPoint.type} - ${entryPoint.location}'),

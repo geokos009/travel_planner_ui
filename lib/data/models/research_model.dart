@@ -7,7 +7,7 @@ part 'research_model.g.dart';
 @freezed
 class ResearchModel with _$ResearchModel {
   const factory ResearchModel({
-    @JsonKey(defaultValue: '') required String destination,
+    required bool error,
     required ResearchData data,
   }) = _ResearchModel;
 
@@ -18,7 +18,7 @@ class ResearchModel with _$ResearchModel {
 @freezed
 class ResearchData with _$ResearchData {
   const factory ResearchData({
-    @JsonKey(name: 'research') required ResearchDetails research,
+    required ResearchContent research,
   }) = _ResearchData;
 
   factory ResearchData.fromJson(Map<String, dynamic> json) =>
@@ -26,28 +26,96 @@ class ResearchData with _$ResearchData {
 }
 
 @freezed
+class ResearchContent with _$ResearchContent {
+  const factory ResearchContent({
+    required String destination,
+    required ResearchDetails data,
+  }) = _ResearchContent;
+
+  factory ResearchContent.fromJson(Map<String, dynamic> json) =>
+      _$ResearchContentFromJson(json);
+}
+
+@freezed
 class ResearchDetails with _$ResearchDetails {
   const factory ResearchDetails({
-    @JsonKey(name: 'entry_points', defaultValue: []) 
-    required List<EntryPoint> entryPoints,
-    @JsonKey(defaultValue: []) 
-    required List<Region> regions,
-    @Default({}) 
-    Map<String, List<Attraction>> attractions,
+    @JsonKey(fromJson: _researchFromJson, toJson: _researchToJson)
+    required ResearchInfo research,
   }) = _ResearchDetails;
 
   factory ResearchDetails.fromJson(Map<String, dynamic> json) =>
       _$ResearchDetailsFromJson(json);
 }
 
+ResearchInfo _researchFromJson(Map<String, dynamic> json) {
+  return ResearchInfo(
+    entryPoints: (json['entry_points'] as List?)
+            ?.map((e) => EntryPoint.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [],
+    regions: (json['regions'] as List?)
+            ?.map((e) => Region.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [],
+    attractions: (json['attractions'] as Map<String, dynamic>?)?.map(
+          (key, value) => MapEntry(
+            key,
+            (value as List)
+                .map((e) => Attraction.fromJson(e as Map<String, dynamic>))
+                .toList(),
+          ),
+        ) ??
+        {},
+  );
+}
+
+Map<String, dynamic> _researchToJson(ResearchInfo research) {
+  return {
+    'entry_points': research.entryPoints.map((e) => e.toJson()).toList(),
+    'regions': research.regions.map((e) => e.toJson()).toList(),
+    'attractions': research.attractions.map(
+      (key, value) => MapEntry(key, value.map((e) => e.toJson()).toList()),
+    ),
+  };
+}
+
+@freezed
+class ResearchInfo with _$ResearchInfo {
+  const factory ResearchInfo({
+    @Default([]) List<EntryPoint> entryPoints,
+    @Default([]) List<Region> regions,
+    @Default({}) Map<String, List<Attraction>> attractions,
+  }) = _ResearchInfo;
+
+  factory ResearchInfo.fromJson(Map<String, dynamic> json) =>
+      _$ResearchInfoFromJson(json);
+}
+
+@freezed
+class Region with _$Region {
+  const factory Region({
+    required String name,
+    required String description,
+    @JsonKey(name: 'recommended_stay') 
+    required Map<String, String> recommendedStay,
+    @Default([]) List<String> highlights,
+    @JsonKey(name: 'base_for') 
+    @Default([]) List<String> baseFor,
+    @JsonKey(name: 'typical_order') 
+    required String typicalOrder,
+  }) = _Region;
+
+  factory Region.fromJson(Map<String, dynamic> json) => _$RegionFromJson(json);
+}
+
 @freezed
 class EntryPoint with _$EntryPoint {
   const factory EntryPoint({
-    @Default('') String name,
-    @Default('') String type,
-    @Default('') String location,
-    @Default('') String code,
-    @JsonKey(name: 'transportation_to_city', defaultValue: []) 
+    required String name,
+    required String type,
+    required String location,
+    required String code,
+    @JsonKey(name: 'transportation_to_city') 
     required List<Transportation> transportationToCity,
   }) = _EntryPoint;
 
@@ -58,10 +126,10 @@ class EntryPoint with _$EntryPoint {
 @freezed
 class Transportation with _$Transportation {
   const factory Transportation({
-    @Default('') String method,
-    @Default('') String duration,
-    @Default('') String cost,
-    @Default('') String frequency,
+    required String method,
+    required String duration,
+    required String cost,
+    required String frequency,
   }) = _Transportation;
 
   factory Transportation.fromJson(Map<String, dynamic> json) =>
@@ -69,43 +137,25 @@ class Transportation with _$Transportation {
 }
 
 @freezed
-class Region with _$Region {
-  const factory Region({
-    @Default('') String name,
-    @Default('') String description,
-    @JsonKey(name: 'recommended_stay') 
-    @Default({}) Map<String, String> recommendedStay,
-    @Default([]) List<String> highlights,
-    @JsonKey(name: 'base_for') 
-    @Default([]) List<String> baseFor,
-    @JsonKey(name: 'typical_order') 
-    @Default('') String typicalOrder,
-  }) = _Region;
-
-  factory Region.fromJson(Map<String, dynamic> json) =>
-      _$RegionFromJson(json);
-}
-
-@freezed
 class Attraction with _$Attraction {
   const factory Attraction({
-    @Default('') String name,
-    @Default('') String region,
-    @Default('') String category,
+    required String name,
+    required String region,
+    required String category,
     @JsonKey(name: 'sub_category') 
-    @Default('') String subCategory,
-    @Default('') String description,
+    required String subCategory,
+    required String description,
     @JsonKey(name: 'time_required') 
-    @Default('') String timeRequired,
+    required String timeRequired,
     @JsonKey(name: 'best_timing') 
-    @Default('') String bestTiming,
+    required String bestTiming,
     @JsonKey(name: 'cost_range') 
-    @Default('') String costRange,
-    @Default('') String rating,
+    required String costRange,
+    required String rating,
     @JsonKey(name: 'review_count') 
-    @Default('') String reviewCount,
+    required String reviewCount,
     @JsonKey(name: 'must_see') 
-    @Default(false) bool mustSee,
+    required bool mustSee,
   }) = _Attraction;
 
   factory Attraction.fromJson(Map<String, dynamic> json) =>

@@ -13,41 +13,44 @@ class TravelRepositoryImpl implements TravelRepository {
   TravelRepositoryImpl({ApiClient? apiClient}) 
       : _apiClient = apiClient ?? ApiClient();
 
-    @override
+  @override
   Future<ResearchModel> getDestinationResearch(String destination) async {
     try {
       final response = await _apiClient.post(
-        ApiConfig.researchEndpoint,
+        '/research',
         data: {'destination': destination},
       );
 
-      if (response.data != null) {
-        print('Response data structure: ${response.data.runtimeType}');
-        print('Response data: ${response.data}');
-        
-        // Extract the research data from the nested structure
-        final researchData = response.data['data']['research']['data']['research'];
-        
-        // Construct the data in the expected format
-        final formattedData = {
-          'destination': destination,
-          'data': {
-            'research': {
-              'entry_points': researchData['entry_points'],
-              'regions': researchData['regions'],
-              'attractions': researchData['attractions'],
+      // Extract the deeply nested research data
+      final Map<String, dynamic> responseData = response.data;
+      final researchData = responseData['data']['research']['data']['research']['data']['research'];
+      
+      // Create the model data with the correct structure
+      final modelData = {
+        'error': false,
+        'data': {
+          'research': {
+            'destination': destination,
+            'data': {
+              'research': researchData
             }
           }
-        };
-        
-        print('Formatted data: $formattedData');
-        return ResearchModel.fromJson(formattedData);
-      }
-      throw Exception('Invalid response format');
-    } catch (e, stack) {
+        }
+      };
+
+      print('Research data before parsing:');
+      print('Raw research data: $researchData');
+      
+      final researchModel = ResearchModel.fromJson(modelData);
+      
+      print('Research model created:');
+      print('Number of regions: ${researchModel.data.research.data.research.regions.length}');
+      
+      return researchModel;
+    } catch (e, stackTrace) {
       print('Error in getDestinationResearch: $e');
-      print('Stack trace: $stack');
-      rethrow;
+      print('Stack trace: $stackTrace');
+      throw Exception('Failed to get destination research: $e');
     }
   }
 

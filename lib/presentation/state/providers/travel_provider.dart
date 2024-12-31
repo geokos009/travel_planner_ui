@@ -32,9 +32,16 @@ class SelectedRegionsNotifier extends StateNotifier<List<Region>> {
   SelectedRegionsNotifier() : super([]);
 
   void toggleRegion(Region region) {
-    state = state.contains(region) 
-      ? state.where((r) => r != region).toList()
-      : [...state, region];
+    print('Toggling region: ${region.name}'); // Debug print
+    final currentState = [...state];
+    
+    if (currentState.any((r) => r.name == region.name)) {
+      state = currentState.where((r) => r.name != region.name).toList();
+    } else {
+      state = [...currentState, region];
+    }
+    
+    print('Updated selected regions: ${state.map((r) => r.name).join(', ')}'); // Debug print
   }
 }
 
