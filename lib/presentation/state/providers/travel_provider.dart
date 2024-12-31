@@ -62,22 +62,39 @@ final itineraryProvider = FutureProvider.family<ItineraryModel, UserPreferences>
 );
 
 // Selected attractions provider
-final selectedAttractionsProvider = StateNotifierProvider<SelectedAttractionsNotifier, Set<Attraction>>((ref) {
+final selectedAttractionsProvider = StateNotifierProvider<SelectedAttractionsNotifier, List<Attraction>>((ref) {
   return SelectedAttractionsNotifier();
 });
 
-class SelectedAttractionsNotifier extends StateNotifier<Set<Attraction>> {
-  SelectedAttractionsNotifier() : super({});
+class SelectedAttractionsNotifier extends StateNotifier<List<Attraction>> {
+  SelectedAttractionsNotifier() : super([]);
 
-  void toggleAttraction(Attraction attraction) {
-    if (state.contains(attraction)) {
-      state = Set.from(state)..remove(attraction);
-    } else {
-      state = Set.from(state)..add(attraction);
+  void addAttraction(Attraction attraction) {
+    if (!state.contains(attraction)) {
+      state = [...state, attraction];
     }
   }
 
+  void removeAttraction(Attraction attraction) {
+    state = state.where((a) => a != attraction).toList();
+  }
+
   void clearAttractions() {
-    state = {};
+    state = [];
   }
 }
+
+// Add this provider to get attractions from research data
+final attractionsProvider = Provider<List<Attraction>>((ref) {
+  final destination = ref.watch(selectedDestinationProvider);
+  if (destination == null) return [];
+  
+  final researchAsync = ref.watch(destinationResearchProvider(destination));
+  return researchAsync.maybeWhen(
+    data: (research) {
+      final attractions = research.data.research.data.research.attractions;
+      return attractions.values.expand((list) => list).toList();
+    },
+    orElse: () => [],
+  );
+});

@@ -100,43 +100,30 @@ class DestinationScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(destination),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: const Text('Select Regions'),
         actions: [
-          // Always show Next button, but disable if no regions selected
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: TextButton(
-              onPressed: selectedRegions.isEmpty ? null : () {
-                print('Next button pressed with ${selectedRegions.length} regions selected');
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => PreferencesScreen(
-                      destination: destination,
-                      selectedRegions: selectedRegions,
-                    ),
+          TextButton(
+            onPressed: selectedRegions.isNotEmpty ? () {
+              print('Next button pressed with ${selectedRegions.length} regions selected');
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => PreferencesScreen(
+                    destination: destination,
+                    selectedRegions: selectedRegions,
                   ),
-                );
-              },
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-                disabledForegroundColor: Colors.white.withOpacity(0.5),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Next',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: selectedRegions.isEmpty ? Colors.white.withOpacity(0.5) : Colors.white,
-                    ),
-                  ),
-                  if (selectedRegions.isNotEmpty) ...[
-                    const SizedBox(width: 4),
-                    const Icon(Icons.arrow_forward, size: 16),
-                  ],
-                ],
+                ),
+              );
+            } : null,
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.blue[800],
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+            ),
+            child: const Text(
+              'Next',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

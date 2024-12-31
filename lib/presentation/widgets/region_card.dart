@@ -7,11 +7,11 @@ class RegionCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const RegionCard({
-    super.key,
+    Key? key,
     required this.region,
     required this.isSelected,
     required this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
