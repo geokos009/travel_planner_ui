@@ -52,12 +52,13 @@ final userPreferencesProvider = StateNotifierProvider<UserPreferencesNotifier, U
 });
 
 // Itinerary provider
-final itineraryProvider = FutureProvider.family<ItineraryModel, UserPreferences>(
+final itineraryProvider = FutureProvider.family<ItineraryData, UserPreferences>(
   (ref, preferences) async {
     final repository = ref.watch(travelRepositoryProvider);
     final destination = ref.watch(selectedDestinationProvider);
     if (destination == null) throw Exception('No destination selected');
-    return repository.createItinerary(destination, preferences);
+    final response = await repository.createItinerary(destination, preferences);
+    return response.data;
   },
 );
 

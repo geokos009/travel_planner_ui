@@ -55,26 +55,60 @@ class TravelRepositoryImpl implements TravelRepository {
   }
 
   @override
-  Future<ItineraryModel> createItinerary(
-    String destination,
-    UserPreferences preferences,
-  ) async {
+  Future<ItineraryResponse> createItinerary(String destination, UserPreferences preferences) async {
     try {
-      final response = await _apiClient.post(
-        ApiConfig.planEndpoint,
+      final apiResponse = await _apiClient.post(
+        '/plan',
         data: {
           'destination': destination,
           'preferences': preferences.toJson(),
         },
       );
 
-      if (response.data != null && response.data['data'] != null) {
-        return ItineraryModel.fromJson(response.data['data']);
+      // Enhanced debug logging
+      print('\n=== Frontend Response Debug ===');
+      print('Response received');
+      print('Status code: ${apiResponse.statusCode}');
+      print('Response data type: ${apiResponse.data.runtimeType}');
+      print('Raw response data: ${apiResponse.data}');
+
+      final responseData = apiResponse.data as Map<String, dynamic>;
+      
+      // Validate response structure
+      if (!responseData.containsKey('data')) {
+        print('Missing data key in response');
+        throw Exception('Invalid response structure: missing data key');
       }
-      throw Exception('Invalid response format');
-    } catch (e) {
+
+      final data = responseData['data'] as Map<String, dynamic>;
+      if (!data.containsKey('itinerary')) {
+        print('Missing itinerary key in data');
+        throw Exception('Invalid response structure: missing itinerary key');
+      }
+
+      final itineraryList = data['itinerary'] as List;
+      print('Itinerary list length: ${itineraryList.length}');
+
+      // Create and return the ItineraryResponse
+      final itineraryResponse = ItineraryResponse(
+        error: responseData['error'] ?? false,
+        data: ItineraryData(
+          itinerary: itineraryList
+              .map((item) {
+                print('Processing day plan: Day ${item['day']}');
+                return DayPlan.fromJson(item as Map<String, dynamic>);
+              })
+              .toList(),
+        ),
+      );
+
+      print('Successfully created ItineraryResponse with ${itineraryResponse.data.itinerary.length} days');
+      return itineraryResponse;
+
+    } catch (e, stackTrace) {
       print('Error in createItinerary: $e');
-      rethrow;
+      print('Stack trace: $stackTrace');
+      throw Exception('Failed to create itinerary: $e');
     }
   }
 

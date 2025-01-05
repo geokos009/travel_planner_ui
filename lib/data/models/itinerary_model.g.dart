@@ -6,15 +6,28 @@ part of 'itinerary_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ItineraryModelImpl _$$ItineraryModelImplFromJson(Map<String, dynamic> json) =>
-    _$ItineraryModelImpl(
+_$ItineraryResponseImpl _$$ItineraryResponseImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ItineraryResponseImpl(
+      error: json['error'] as bool,
+      data: ItineraryData.fromJson(json['data'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$ItineraryResponseImplToJson(
+        _$ItineraryResponseImpl instance) =>
+    <String, dynamic>{
+      'error': instance.error,
+      'data': instance.data,
+    };
+
+_$ItineraryDataImpl _$$ItineraryDataImplFromJson(Map<String, dynamic> json) =>
+    _$ItineraryDataImpl(
       itinerary: (json['itinerary'] as List<dynamic>)
           .map((e) => DayPlan.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$ItineraryModelImplToJson(
-        _$ItineraryModelImpl instance) =>
+Map<String, dynamic> _$$ItineraryDataImplToJson(_$ItineraryDataImpl instance) =>
     <String, dynamic>{
       'itinerary': instance.itinerary,
     };
@@ -23,14 +36,16 @@ _$DayPlanImpl _$$DayPlanImplFromJson(Map<String, dynamic> json) =>
     _$DayPlanImpl(
       day: (json['day'] as num).toInt(),
       date: json['date'] as String,
-      baseLocation: json['baseLocation'] as String,
-      travelDay: json['travelDay'] as bool,
+      baseLocation: json['base_location'] as String,
+      travelDay: json['travel_day'] as bool,
       activities: (json['activities'] as List<dynamic>)
           .map((e) => Activity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      accommodation:
-          Accommodation.fromJson(json['accommodation'] as Map<String, dynamic>),
-      totalCostEstimate: json['totalCostEstimate'] as String,
+      accommodation: json['accommodation'] == null
+          ? null
+          : Accommodation.fromJson(
+              json['accommodation'] as Map<String, dynamic>),
+      totalCostEstimate: json['total_cost_estimate'] as String,
       notes: (json['notes'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
@@ -38,83 +53,10 @@ Map<String, dynamic> _$$DayPlanImplToJson(_$DayPlanImpl instance) =>
     <String, dynamic>{
       'day': instance.day,
       'date': instance.date,
-      'baseLocation': instance.baseLocation,
-      'travelDay': instance.travelDay,
+      'base_location': instance.baseLocation,
+      'travel_day': instance.travelDay,
       'activities': instance.activities,
       'accommodation': instance.accommodation,
-      'totalCostEstimate': instance.totalCostEstimate,
-      'notes': instance.notes,
-    };
-
-_$ActivityImpl _$$ActivityImplFromJson(Map<String, dynamic> json) =>
-    _$ActivityImpl(
-      time: json['time'] as String,
-      activity: json['activity'] as String,
-      location: json['location'] as String,
-      description: json['description'] as String,
-      duration: json['duration'] as String,
-      transportation: Transportation.fromJson(
-          json['transportation'] as Map<String, dynamic>),
-      cost: json['cost'] as String,
-      tips: (json['tips'] as List<dynamic>).map((e) => e as String).toList(),
-      bookingRequired: json['bookingRequired'] as bool,
-      bookingInfo: json['bookingInfo'] as String?,
-    );
-
-Map<String, dynamic> _$$ActivityImplToJson(_$ActivityImpl instance) =>
-    <String, dynamic>{
-      'time': instance.time,
-      'activity': instance.activity,
-      'location': instance.location,
-      'description': instance.description,
-      'duration': instance.duration,
-      'transportation': instance.transportation,
-      'cost': instance.cost,
-      'tips': instance.tips,
-      'bookingRequired': instance.bookingRequired,
-      'bookingInfo': instance.bookingInfo,
-    };
-
-_$TransportationImpl _$$TransportationImplFromJson(Map<String, dynamic> json) =>
-    _$TransportationImpl(
-      method: json['method'] as String,
-      from: json['from'] as String,
-      to: json['to'] as String,
-      duration: json['duration'] as String,
-      cost: json['cost'] as String,
-      notes: (json['notes'] as List<dynamic>).map((e) => e as String).toList(),
-    );
-
-Map<String, dynamic> _$$TransportationImplToJson(
-        _$TransportationImpl instance) =>
-    <String, dynamic>{
-      'method': instance.method,
-      'from': instance.from,
-      'to': instance.to,
-      'duration': instance.duration,
-      'cost': instance.cost,
-      'notes': instance.notes,
-    };
-
-_$AccommodationImpl _$$AccommodationImplFromJson(Map<String, dynamic> json) =>
-    _$AccommodationImpl(
-      name: json['name'] as String,
-      location: json['location'] as String,
-      checkIn: json['checkIn'] as String,
-      checkOut: json['checkOut'] as String,
-      amenities:
-          (json['amenities'] as List<dynamic>).map((e) => e as String).toList(),
-      bookingInfo: json['bookingInfo'] as String,
-      notes: (json['notes'] as List<dynamic>).map((e) => e as String).toList(),
-    );
-
-Map<String, dynamic> _$$AccommodationImplToJson(_$AccommodationImpl instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'location': instance.location,
-      'checkIn': instance.checkIn,
-      'checkOut': instance.checkOut,
-      'amenities': instance.amenities,
-      'bookingInfo': instance.bookingInfo,
+      'total_cost_estimate': instance.totalCostEstimate,
       'notes': instance.notes,
     };

@@ -5,7 +5,7 @@ import '../../data/models/user_preferences.dart';
 
 abstract class TravelRepository {
   Future<ResearchModel> getDestinationResearch(String destination);
-  Future<ItineraryModel> createItinerary(String destination, UserPreferences preferences);
+  Future<ItineraryResponse> createItinerary(String destination, UserPreferences preferences);
   Future<void> saveUserPreferences(UserPreferences preferences);
   Future<UserPreferences?> getUserPreferences();
 }
