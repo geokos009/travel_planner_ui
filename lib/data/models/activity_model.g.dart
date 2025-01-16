@@ -28,11 +28,11 @@ Map<String, dynamic> _$$ActivityImplToJson(_$ActivityImpl instance) =>
       'location': instance.location,
       'description': instance.description,
       'duration': instance.duration,
-      'transportation': instance.transportation,
+      'transportation': instance.transportation.toJson(),
       'cost': instance.cost,
       'tips': instance.tips,
       'booking_required': instance.bookingRequired,
-      'booking_info': instance.bookingInfo,
+      if (instance.bookingInfo case final value?) 'booking_info': value,
     };
 
 _$ActivityTransportationImpl _$$ActivityTransportationImplFromJson(

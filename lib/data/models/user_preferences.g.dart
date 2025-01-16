@@ -28,7 +28,8 @@ Map<String, dynamic> _$$UserPreferencesImplToJson(
       'trip_duration': instance.tripDuration,
       'trip_style': instance.tripStyle,
       'budget_level': instance.budgetLevel,
-      'base_locations': instance.baseLocations,
-      'entry_point': instance.entryPoint,
-      'selected_attractions': instance.selectedAttractions,
+      'base_locations': instance.baseLocations.map((e) => e.toJson()).toList(),
+      'entry_point': instance.entryPoint.toJson(),
+      'selected_attractions':
+          instance.selectedAttractions.map((e) => e.toJson()).toList(),
     };

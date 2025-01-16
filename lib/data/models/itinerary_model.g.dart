@@ -17,7 +17,7 @@ Map<String, dynamic> _$$ItineraryResponseImplToJson(
         _$ItineraryResponseImpl instance) =>
     <String, dynamic>{
       'error': instance.error,
-      'data': instance.data,
+      'data': instance.data.toJson(),
     };
 
 _$ItineraryDataImpl _$$ItineraryDataImplFromJson(Map<String, dynamic> json) =>
@@ -29,7 +29,7 @@ _$ItineraryDataImpl _$$ItineraryDataImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ItineraryDataImplToJson(_$ItineraryDataImpl instance) =>
     <String, dynamic>{
-      'itinerary': instance.itinerary,
+      'itinerary': instance.itinerary.map((e) => e.toJson()).toList(),
     };
 
 _$DayPlanImpl _$$DayPlanImplFromJson(Map<String, dynamic> json) =>
@@ -55,8 +55,9 @@ Map<String, dynamic> _$$DayPlanImplToJson(_$DayPlanImpl instance) =>
       'date': instance.date,
       'base_location': instance.baseLocation,
       'travel_day': instance.travelDay,
-      'activities': instance.activities,
-      'accommodation': instance.accommodation,
+      'activities': instance.activities.map((e) => e.toJson()).toList(),
+      if (instance.accommodation?.toJson() case final value?)
+        'accommodation': value,
       'total_cost_estimate': instance.totalCostEstimate,
       'notes': instance.notes,
     };

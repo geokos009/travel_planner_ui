@@ -15,7 +15,7 @@ _$ResearchModelImpl _$$ResearchModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$ResearchModelImplToJson(_$ResearchModelImpl instance) =>
     <String, dynamic>{
       'error': instance.error,
-      'data': instance.data,
+      'data': instance.data.toJson(),
     };
 
 _$ResearchDataImpl _$$ResearchDataImplFromJson(Map<String, dynamic> json) =>
@@ -26,7 +26,7 @@ _$ResearchDataImpl _$$ResearchDataImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ResearchDataImplToJson(_$ResearchDataImpl instance) =>
     <String, dynamic>{
-      'research': instance.research,
+      'research': instance.research.toJson(),
     };
 
 _$ResearchContentImpl _$$ResearchContentImplFromJson(
@@ -40,7 +40,7 @@ Map<String, dynamic> _$$ResearchContentImplToJson(
         _$ResearchContentImpl instance) =>
     <String, dynamic>{
       'destination': instance.destination,
-      'data': instance.data,
+      'data': instance.data.toJson(),
     };
 
 _$ResearchDetailsImpl _$$ResearchDetailsImplFromJson(
@@ -77,9 +77,10 @@ _$ResearchInfoImpl _$$ResearchInfoImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ResearchInfoImplToJson(_$ResearchInfoImpl instance) =>
     <String, dynamic>{
-      'entryPoints': instance.entryPoints,
-      'regions': instance.regions,
-      'attractions': instance.attractions,
+      'entryPoints': instance.entryPoints.map((e) => e.toJson()).toList(),
+      'regions': instance.regions.map((e) => e.toJson()).toList(),
+      'attractions': instance.attractions
+          .map((k, e) => MapEntry(k, e.map((e) => e.toJson()).toList())),
     };
 
 _$RegionImpl _$$RegionImplFromJson(Map<String, dynamic> json) => _$RegionImpl(
@@ -125,7 +126,8 @@ Map<String, dynamic> _$$EntryPointImplToJson(_$EntryPointImpl instance) =>
       'type': instance.type,
       'location': instance.location,
       'code': instance.code,
-      'transportation_to_city': instance.transportationToCity,
+      'transportation_to_city':
+          instance.transportationToCity.map((e) => e.toJson()).toList(),
     };
 
 _$TransportationImpl _$$TransportationImplFromJson(Map<String, dynamic> json) =>

@@ -23,6 +23,13 @@ final destinationResearchProvider = FutureProvider.family<ResearchModel, String>
   },
 );
 
+// Agent outputs provider
+final allAgentOutputsProvider = FutureProvider.family<Map<String, dynamic>, String>((ref, destination) async {
+  // Add your logic to fetch agent outputs
+  // For now, return empty map
+  return {};
+});
+
 // Selected regions provider
 final selectedRegionsProvider = StateNotifierProvider<SelectedRegionsNotifier, List<Region>>((ref) {
   return SelectedRegionsNotifier();
