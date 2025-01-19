@@ -36,28 +36,23 @@ _$DayPlanImpl _$$DayPlanImplFromJson(Map<String, dynamic> json) =>
     _$DayPlanImpl(
       day: (json['day'] as num).toInt(),
       date: json['date'] as String,
-      baseLocation: json['base_location'] as String,
-      travelDay: json['travel_day'] as bool,
       activities: (json['activities'] as List<dynamic>)
           .map((e) => Activity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      accommodation: json['accommodation'] == null
-          ? null
-          : Accommodation.fromJson(
-              json['accommodation'] as Map<String, dynamic>),
+      accommodation:
+          Accommodation.fromJson(json['accommodation'] as Map<String, dynamic>),
       totalCostEstimate: json['total_cost_estimate'] as String,
       notes: (json['notes'] as List<dynamic>).map((e) => e as String).toList(),
+      baseLocation: json['baseLocation'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$DayPlanImplToJson(_$DayPlanImpl instance) =>
     <String, dynamic>{
       'day': instance.day,
       'date': instance.date,
-      'base_location': instance.baseLocation,
-      'travel_day': instance.travelDay,
       'activities': instance.activities.map((e) => e.toJson()).toList(),
-      if (instance.accommodation?.toJson() case final value?)
-        'accommodation': value,
+      'accommodation': instance.accommodation.toJson(),
       'total_cost_estimate': instance.totalCostEstimate,
       'notes': instance.notes,
+      'baseLocation': instance.baseLocation,
     };

@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import '../../data/models/research_model.dart';
 
 class RegionCard extends StatelessWidget {
-  final Region region;
+  final MainArea region;
   final bool isSelected;
   final VoidCallback onTap;
 
   const RegionCard({
-    Key? key,
+    super.key,
     required this.region,
     required this.isSelected,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: isSelected ? 4 : 1,
-      color: isSelected ? Colors.blue.shade50 : null,
+      color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.1) : null,
       child: InkWell(
         onTap: onTap,
         child: Padding(
@@ -34,7 +34,10 @@ class RegionCard extends StatelessWidget {
                     ),
                   ),
                   if (isSelected)
-                    const Icon(Icons.check_circle, color: Colors.blue),
+                    Icon(
+                      Icons.check_circle,
+                      color: Theme.of(context).primaryColor,
+                    ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -52,10 +55,12 @@ class RegionCard extends StatelessWidget {
               const SizedBox(height: 4),
               Wrap(
                 spacing: 8,
-                children: region.highlights.map((highlight) => Chip(
-                  label: Text(highlight),
-                  backgroundColor: Colors.grey[200],
-                )).toList(),
+                children: region.highlights.map((highlight) {
+                  return Chip(
+                    label: Text(highlight),
+                    backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
+                  );
+                }).toList(),
               ),
             ],
           ),

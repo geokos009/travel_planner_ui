@@ -31,7 +31,7 @@ mixin _$UserPreferences {
   @JsonKey(name: 'entry_point')
   EntryPoint get entryPoint => throw _privateConstructorUsedError;
   @JsonKey(name: 'selected_attractions')
-  List<Attraction> get selectedAttractions =>
+  List<SelectedAttraction> get selectedAttractions =>
       throw _privateConstructorUsedError;
 
   /// Serializes this UserPreferences to a JSON map.
@@ -57,7 +57,7 @@ abstract class $UserPreferencesCopyWith<$Res> {
       @JsonKey(name: 'base_locations') List<BaseLocation> baseLocations,
       @JsonKey(name: 'entry_point') EntryPoint entryPoint,
       @JsonKey(name: 'selected_attractions')
-      List<Attraction> selectedAttractions});
+      List<SelectedAttraction> selectedAttractions});
 
   $EntryPointCopyWith<$Res> get entryPoint;
 }
@@ -108,7 +108,7 @@ class _$UserPreferencesCopyWithImpl<$Res, $Val extends UserPreferences>
       selectedAttractions: null == selectedAttractions
           ? _value.selectedAttractions
           : selectedAttractions // ignore: cast_nullable_to_non_nullable
-              as List<Attraction>,
+              as List<SelectedAttraction>,
     ) as $Val);
   }
 
@@ -138,7 +138,7 @@ abstract class _$$UserPreferencesImplCopyWith<$Res>
       @JsonKey(name: 'base_locations') List<BaseLocation> baseLocations,
       @JsonKey(name: 'entry_point') EntryPoint entryPoint,
       @JsonKey(name: 'selected_attractions')
-      List<Attraction> selectedAttractions});
+      List<SelectedAttraction> selectedAttractions});
 
   @override
   $EntryPointCopyWith<$Res> get entryPoint;
@@ -188,7 +188,7 @@ class __$$UserPreferencesImplCopyWithImpl<$Res>
       selectedAttractions: null == selectedAttractions
           ? _value._selectedAttractions
           : selectedAttractions // ignore: cast_nullable_to_non_nullable
-              as List<Attraction>,
+              as List<SelectedAttraction>,
     ));
   }
 }
@@ -204,7 +204,7 @@ class _$UserPreferencesImpl implements _UserPreferences {
       required final List<BaseLocation> baseLocations,
       @JsonKey(name: 'entry_point') required this.entryPoint,
       @JsonKey(name: 'selected_attractions')
-      required final List<Attraction> selectedAttractions})
+      required final List<SelectedAttraction> selectedAttractions})
       : _baseLocations = baseLocations,
         _selectedAttractions = selectedAttractions;
 
@@ -232,10 +232,10 @@ class _$UserPreferencesImpl implements _UserPreferences {
   @override
   @JsonKey(name: 'entry_point')
   final EntryPoint entryPoint;
-  final List<Attraction> _selectedAttractions;
+  final List<SelectedAttraction> _selectedAttractions;
   @override
   @JsonKey(name: 'selected_attractions')
-  List<Attraction> get selectedAttractions {
+  List<SelectedAttraction> get selectedAttractions {
     if (_selectedAttractions is EqualUnmodifiableListView)
       return _selectedAttractions;
     // ignore: implicit_dynamic_type
@@ -303,7 +303,7 @@ abstract class _UserPreferences implements UserPreferences {
           required final List<BaseLocation> baseLocations,
           @JsonKey(name: 'entry_point') required final EntryPoint entryPoint,
           @JsonKey(name: 'selected_attractions')
-          required final List<Attraction> selectedAttractions}) =
+          required final List<SelectedAttraction> selectedAttractions}) =
       _$UserPreferencesImpl;
 
   factory _UserPreferences.fromJson(Map<String, dynamic> json) =
@@ -326,7 +326,7 @@ abstract class _UserPreferences implements UserPreferences {
   EntryPoint get entryPoint;
   @override
   @JsonKey(name: 'selected_attractions')
-  List<Attraction> get selectedAttractions;
+  List<SelectedAttraction> get selectedAttractions;
 
   /// Create a copy of UserPreferences
   /// with the given fields replaced by the non-null parameter values.

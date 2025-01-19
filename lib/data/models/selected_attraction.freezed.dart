@@ -22,8 +22,8 @@ SelectedAttraction _$SelectedAttractionFromJson(Map<String, dynamic> json) {
 mixin _$SelectedAttraction {
   String get name => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
-  String get duration => throw _privateConstructorUsedError;
-  String get bestTiming => throw _privateConstructorUsedError;
+  String get region => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
 
   /// Serializes this SelectedAttraction to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $SelectedAttractionCopyWith<$Res> {
           SelectedAttraction value, $Res Function(SelectedAttraction) then) =
       _$SelectedAttractionCopyWithImpl<$Res, SelectedAttraction>;
   @useResult
-  $Res call({String name, String category, String duration, String bestTiming});
+  $Res call({String name, String category, String region, String description});
 }
 
 /// @nodoc
@@ -61,8 +61,8 @@ class _$SelectedAttractionCopyWithImpl<$Res, $Val extends SelectedAttraction>
   $Res call({
     Object? name = null,
     Object? category = null,
-    Object? duration = null,
-    Object? bestTiming = null,
+    Object? region = null,
+    Object? description = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -73,13 +73,13 @@ class _$SelectedAttractionCopyWithImpl<$Res, $Val extends SelectedAttraction>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
-      duration: null == duration
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
+      region: null == region
+          ? _value.region
+          : region // ignore: cast_nullable_to_non_nullable
               as String,
-      bestTiming: null == bestTiming
-          ? _value.bestTiming
-          : bestTiming // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -93,7 +93,7 @@ abstract class _$$SelectedAttractionImplCopyWith<$Res>
       __$$SelectedAttractionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String category, String duration, String bestTiming});
+  $Res call({String name, String category, String region, String description});
 }
 
 /// @nodoc
@@ -111,8 +111,8 @@ class __$$SelectedAttractionImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? category = null,
-    Object? duration = null,
-    Object? bestTiming = null,
+    Object? region = null,
+    Object? description = null,
   }) {
     return _then(_$SelectedAttractionImpl(
       name: null == name
@@ -123,13 +123,13 @@ class __$$SelectedAttractionImplCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
-      duration: null == duration
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
+      region: null == region
+          ? _value.region
+          : region // ignore: cast_nullable_to_non_nullable
               as String,
-      bestTiming: null == bestTiming
-          ? _value.bestTiming
-          : bestTiming // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -141,8 +141,8 @@ class _$SelectedAttractionImpl implements _SelectedAttraction {
   const _$SelectedAttractionImpl(
       {required this.name,
       required this.category,
-      required this.duration,
-      required this.bestTiming});
+      required this.region,
+      required this.description});
 
   factory _$SelectedAttractionImpl.fromJson(Map<String, dynamic> json) =>
       _$$SelectedAttractionImplFromJson(json);
@@ -152,13 +152,13 @@ class _$SelectedAttractionImpl implements _SelectedAttraction {
   @override
   final String category;
   @override
-  final String duration;
+  final String region;
   @override
-  final String bestTiming;
+  final String description;
 
   @override
   String toString() {
-    return 'SelectedAttraction(name: $name, category: $category, duration: $duration, bestTiming: $bestTiming)';
+    return 'SelectedAttraction(name: $name, category: $category, region: $region, description: $description)';
   }
 
   @override
@@ -169,16 +169,15 @@ class _$SelectedAttractionImpl implements _SelectedAttraction {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            (identical(other.duration, duration) ||
-                other.duration == duration) &&
-            (identical(other.bestTiming, bestTiming) ||
-                other.bestTiming == bestTiming));
+            (identical(other.region, region) || other.region == region) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, category, duration, bestTiming);
+      Object.hash(runtimeType, name, category, region, description);
 
   /// Create a copy of SelectedAttraction
   /// with the given fields replaced by the non-null parameter values.
@@ -201,8 +200,8 @@ abstract class _SelectedAttraction implements SelectedAttraction {
   const factory _SelectedAttraction(
       {required final String name,
       required final String category,
-      required final String duration,
-      required final String bestTiming}) = _$SelectedAttractionImpl;
+      required final String region,
+      required final String description}) = _$SelectedAttractionImpl;
 
   factory _SelectedAttraction.fromJson(Map<String, dynamic> json) =
       _$SelectedAttractionImpl.fromJson;
@@ -212,9 +211,9 @@ abstract class _SelectedAttraction implements SelectedAttraction {
   @override
   String get category;
   @override
-  String get duration;
+  String get region;
   @override
-  String get bestTiming;
+  String get description;
 
   /// Create a copy of SelectedAttraction
   /// with the given fields replaced by the non-null parameter values.

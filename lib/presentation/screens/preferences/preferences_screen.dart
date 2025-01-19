@@ -266,32 +266,32 @@ class _PreferencesScreenState extends ConsumerState<PreferencesScreen> {
 
 
   void _onNextPressed() {
-  if (_selectedEntryPoint == null) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Please select an entry point')),
+    if (_selectedEntryPoint == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select an entry point')),
+      );
+      return;
+    }
+
+    final preferences = UserPreferences(
+      tripDuration: _tripDuration,
+      tripStyle: _travelStyle,
+      budgetLevel: _budgetLevel,
+      baseLocations: widget.selectedRegions.map((region) => 
+        BaseLocationExtension.fromRegion(region)).toList(),
+      entryPoint: _selectedEntryPoint!,  // Use directly since it's the same type
+      selectedAttractions: [],
     );
-    return;
-  }
 
-  final preferences = UserPreferences(
-    tripDuration: _tripDuration,
-    tripStyle: _travelStyle,
-    budgetLevel: _budgetLevel,
-    baseLocations: widget.selectedRegions.map((region) => 
-      BaseLocationExtension.fromRegion(region)).toList(),  // Use the extension here
-    entryPoint: _selectedEntryPoint!,
-    selectedAttractions: [],
-  );
+    ref.read(userPreferencesProvider.notifier).updatePreferences(preferences);
 
-  ref.read(userPreferencesProvider.notifier).updatePreferences(preferences);
-
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (context) => AttractionsScreen(
-        destination: widget.destination,
-        preferences: preferences,
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => AttractionsScreen(
+          destination: widget.destination,
+          preferences: preferences,
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/models/research_model.dart';
 import '../../../data/models/itinerary_model.dart';
 import '../../../data/models/user_preferences.dart';
+import '../../../data/models/selected_attraction.dart';
 import '../../../data/repositories/travel_repository_impl.dart';
 import '../../../domain/repositories/travel_repository.dart';
 import '../notifiers/user_preferences_notifier.dart';
@@ -31,24 +32,19 @@ final allAgentOutputsProvider = FutureProvider.family<Map<String, dynamic>, Stri
 });
 
 // Selected regions provider
-final selectedRegionsProvider = StateNotifierProvider<SelectedRegionsNotifier, List<Region>>((ref) {
+final selectedRegionsProvider = StateNotifierProvider<SelectedRegionsNotifier, List<MainArea>>((ref) {
   return SelectedRegionsNotifier();
 });
 
-class SelectedRegionsNotifier extends StateNotifier<List<Region>> {
+class SelectedRegionsNotifier extends StateNotifier<List<MainArea>> {
   SelectedRegionsNotifier() : super([]);
 
-  void toggleRegion(Region region) {
-    print('Toggling region: ${region.name}'); // Debug print
-    final currentState = [...state];
-    
-    if (currentState.any((r) => r.name == region.name)) {
-      state = currentState.where((r) => r.name != region.name).toList();
+  void toggleRegion(MainArea region) {
+    if (state.any((r) => r.name == region.name)) {
+      state = state.where((r) => r.name != region.name).toList();
     } else {
-      state = [...currentState, region];
+      state = [...state, region];
     }
-    
-    print('Updated selected regions: ${state.map((r) => r.name).join(', ')}'); // Debug print
   }
 }
 
@@ -70,21 +66,21 @@ final itineraryProvider = FutureProvider.family<ItineraryData, UserPreferences>(
 );
 
 // Selected attractions provider
-final selectedAttractionsProvider = StateNotifierProvider<SelectedAttractionsNotifier, List<Attraction>>((ref) {
+final selectedAttractionsProvider = StateNotifierProvider<SelectedAttractionsNotifier, List<SelectedAttraction>>((ref) {
   return SelectedAttractionsNotifier();
 });
 
-class SelectedAttractionsNotifier extends StateNotifier<List<Attraction>> {
+class SelectedAttractionsNotifier extends StateNotifier<List<SelectedAttraction>> {
   SelectedAttractionsNotifier() : super([]);
 
-  void addAttraction(Attraction attraction) {
-    if (!state.contains(attraction)) {
+  void addAttraction(SelectedAttraction attraction) {
+    if (!state.any((a) => a.name == attraction.name)) {
       state = [...state, attraction];
     }
   }
 
-  void removeAttraction(Attraction attraction) {
-    state = state.where((a) => a != attraction).toList();
+  void removeAttraction(SelectedAttraction attraction) {
+    state = state.where((a) => a.name != attraction.name).toList();
   }
 
   void clearAttractions() {

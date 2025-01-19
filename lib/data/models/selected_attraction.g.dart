@@ -11,8 +11,8 @@ _$SelectedAttractionImpl _$$SelectedAttractionImplFromJson(
     _$SelectedAttractionImpl(
       name: json['name'] as String,
       category: json['category'] as String,
-      duration: json['duration'] as String,
-      bestTiming: json['bestTiming'] as String,
+      region: json['region'] as String,
+      description: json['description'] as String,
     );
 
 Map<String, dynamic> _$$SelectedAttractionImplToJson(
@@ -20,6 +20,6 @@ Map<String, dynamic> _$$SelectedAttractionImplToJson(
     <String, dynamic>{
       'name': instance.name,
       'category': instance.category,
-      'duration': instance.duration,
-      'bestTiming': instance.bestTiming,
+      'region': instance.region,
+      'description': instance.description,
     };

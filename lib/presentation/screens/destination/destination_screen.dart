@@ -22,17 +22,10 @@ class DestinationContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedRegions = ref.watch(selectedRegionsProvider);
     
-    print('Building DestinationContent');
-    print('Research model: $research');
-    print('Research data: ${research.data}');
-    print('Research content: ${research.data.research}');
-    print('Research details: ${research.data.research.data}');
-    print('Research info: ${research.data.research.data.research}');
-    print('Regions count: ${research.data.research.data.research.regions.length}');
+    // Safely access the regions
+    final mainAreas = research.data.research.data?.data.coreInfo.mainAreas ?? [];
     
-    final regions = research.data.research.data.research.regions;
-    
-    if (regions.isEmpty) {
+    if (mainAreas.isEmpty) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +34,7 @@ class DestinationContent extends ConsumerWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                ref.refresh(destinationResearchProvider(research.data.research.destination));
+                ref.refresh(destinationResearchProvider(research.data.research.data?.destination ?? ''));
               },
               child: const Text('Retry'),
             ),
@@ -65,16 +58,16 @@ class DestinationContent extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 16),
-        ...regions.map((region) {
-          final isSelected = selectedRegions.contains(region);
+        ...mainAreas.map((area) {
+          final isSelected = selectedRegions.any((r) => r.name == area.name);
           return Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: RegionCard(
-              region: region,
+              region: area,
               isSelected: isSelected,
               onTap: () {
-                print('Tapping region: ${region.name}');
-                ref.read(selectedRegionsProvider.notifier).toggleRegion(region);
+                print('Tapping region: ${area.name}');
+                ref.read(selectedRegionsProvider.notifier).toggleRegion(area);
               },
             ),
           );

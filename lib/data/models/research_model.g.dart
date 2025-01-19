@@ -6,6 +6,39 @@ part of 'research_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$ApiResponseImpl<T> _$$ApiResponseImplFromJson<T>(
+  Map<String, dynamic> json,
+  T Function(Object? json) fromJsonT,
+) =>
+    _$ApiResponseImpl<T>(
+      error: json['error'] as bool,
+      data: _$nullableGenericFromJson(json['data'], fromJsonT),
+      message: json['message'] as String?,
+    );
+
+Map<String, dynamic> _$$ApiResponseImplToJson<T>(
+  _$ApiResponseImpl<T> instance,
+  Object? Function(T value) toJsonT,
+) =>
+    <String, dynamic>{
+      'error': instance.error,
+      if (_$nullableGenericToJson(instance.data, toJsonT) case final value?)
+        'data': value,
+      if (instance.message case final value?) 'message': value,
+    };
+
+T? _$nullableGenericFromJson<T>(
+  Object? input,
+  T Function(Object? json) fromJson,
+) =>
+    input == null ? null : fromJson(input);
+
+Object? _$nullableGenericToJson<T>(
+  T? input,
+  Object? Function(T value) toJson,
+) =>
+    input == null ? null : toJson(input);
+
 _$ResearchModelImpl _$$ResearchModelImplFromJson(Map<String, dynamic> json) =>
     _$ResearchModelImpl(
       error: json['error'] as bool,
@@ -32,27 +65,89 @@ Map<String, dynamic> _$$ResearchDataImplToJson(_$ResearchDataImpl instance) =>
 _$ResearchContentImpl _$$ResearchContentImplFromJson(
         Map<String, dynamic> json) =>
     _$ResearchContentImpl(
-      destination: json['destination'] as String,
-      data: ResearchDetails.fromJson(json['data'] as Map<String, dynamic>),
+      error: json['error'] as bool,
+      data: json['data'] == null
+          ? null
+          : ResearchDetails.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ResearchContentImplToJson(
         _$ResearchContentImpl instance) =>
     <String, dynamic>{
-      'destination': instance.destination,
-      'data': instance.data.toJson(),
+      'error': instance.error,
+      if (instance.data?.toJson() case final value?) 'data': value,
     };
 
 _$ResearchDetailsImpl _$$ResearchDetailsImplFromJson(
         Map<String, dynamic> json) =>
     _$ResearchDetailsImpl(
-      research: _researchFromJson(json['research'] as Map<String, dynamic>),
+      destination: json['destination'] as String,
+      data: CoreInfoData.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ResearchDetailsImplToJson(
         _$ResearchDetailsImpl instance) =>
     <String, dynamic>{
-      'research': _researchToJson(instance.research),
+      'destination': instance.destination,
+      'data': instance.data.toJson(),
+    };
+
+_$CoreInfoDataImpl _$$CoreInfoDataImplFromJson(Map<String, dynamic> json) =>
+    _$CoreInfoDataImpl(
+      coreInfo: CoreInfo.fromJson(json['core_info'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$CoreInfoDataImplToJson(_$CoreInfoDataImpl instance) =>
+    <String, dynamic>{
+      'core_info': instance.coreInfo.toJson(),
+    };
+
+_$CoreInfoImpl _$$CoreInfoImplFromJson(Map<String, dynamic> json) =>
+    _$CoreInfoImpl(
+      description: json['description'] as String,
+      bestTimeToVisit: json['best_time_to_visit'] as String,
+      mainAreas: (json['main_areas'] as List<dynamic>)
+          .map((e) => MainArea.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      transportation: Transportation.fromJson(
+          json['transportation'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$CoreInfoImplToJson(_$CoreInfoImpl instance) =>
+    <String, dynamic>{
+      'description': instance.description,
+      'best_time_to_visit': instance.bestTimeToVisit,
+      'main_areas': instance.mainAreas.map((e) => e.toJson()).toList(),
+      'transportation': instance.transportation.toJson(),
+    };
+
+_$MainAreaImpl _$$MainAreaImplFromJson(Map<String, dynamic> json) =>
+    _$MainAreaImpl(
+      name: json['name'] as String,
+      description: json['description'] as String,
+      highlights: (json['highlights'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+    );
+
+Map<String, dynamic> _$$MainAreaImplToJson(_$MainAreaImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'description': instance.description,
+      'highlights': instance.highlights,
+    };
+
+_$TransportationImpl _$$TransportationImplFromJson(Map<String, dynamic> json) =>
+    _$TransportationImpl(
+      gettingThere: json['getting_there'] as String,
+      gettingAround: json['getting_around'] as String,
+    );
+
+Map<String, dynamic> _$$TransportationImplToJson(
+        _$TransportationImpl instance) =>
+    <String, dynamic>{
+      'getting_there': instance.gettingThere,
+      'getting_around': instance.gettingAround,
     };
 
 _$ResearchInfoImpl _$$ResearchInfoImplFromJson(Map<String, dynamic> json) =>
@@ -128,23 +223,6 @@ Map<String, dynamic> _$$EntryPointImplToJson(_$EntryPointImpl instance) =>
       'code': instance.code,
       'transportation_to_city':
           instance.transportationToCity.map((e) => e.toJson()).toList(),
-    };
-
-_$TransportationImpl _$$TransportationImplFromJson(Map<String, dynamic> json) =>
-    _$TransportationImpl(
-      method: json['method'] as String,
-      duration: json['duration'] as String,
-      cost: json['cost'] as String,
-      frequency: json['frequency'] as String,
-    );
-
-Map<String, dynamic> _$$TransportationImplToJson(
-        _$TransportationImpl instance) =>
-    <String, dynamic>{
-      'method': instance.method,
-      'duration': instance.duration,
-      'cost': instance.cost,
-      'frequency': instance.frequency,
     };
 
 _$AttractionImpl _$$AttractionImplFromJson(Map<String, dynamic> json) =>

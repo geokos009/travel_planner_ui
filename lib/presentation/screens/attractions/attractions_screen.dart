@@ -28,51 +28,26 @@ class AttractionsScreen extends ConsumerWidget {
         body: Center(child: Text('Error: $error')),
       ),
       data: (research) {
-        // Get all attractions from research data
-        final allAttractions = research.data.research.data.research.attractions;
-        
-        // Create a list of all attractions
-        final attractions = allAttractions.values.expand((list) => list).toList();
+        // Safely access the main areas
+        final mainAreas = research.data.research.data?.data.coreInfo.mainAreas ?? [];
         
         // Group attractions by region
-        Map<String, List<Attraction>> groupedAttractions = {};
+        Map<String, List<MainArea>> groupedAttractions = {};
         for (var baseLocation in preferences.baseLocations) {
-          groupedAttractions[baseLocation.name] = attractions
-              .where((a) => a.region == baseLocation.name)
+          groupedAttractions[baseLocation.name] = mainAreas
+              .where((a) => a.name == baseLocation.name)
               .toList();
         }
 
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
             title: const Text('Select Attractions'),
             actions: [
               TextButton(
                 onPressed: () {
-                  // Update preferences with selected attractions
-                  final selectedAttractions = ref.read(selectedAttractionsProvider);
-                  final updatedPreferences = preferences.copyWith(
-                    selectedAttractions: selectedAttractions,
-                  );
-                  
-                  // Update preferences in provider
-                  ref.read(userPreferencesProvider.notifier)
-                    .updatePreferences(updatedPreferences);
-                    
-                  // Navigate to next screen
                   Navigator.pushNamed(context, '/itinerary');
                 },
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue[800],
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                ),
-                child: const Text(
-                  'Next',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: const Text('Next'),
               ),
             ],
           ),
@@ -85,31 +60,21 @@ class AttractionsScreen extends ConsumerWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    color: Colors.grey[200],
-                    padding: const EdgeInsets.all(16.0),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
                     child: Text(
                       region,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
-                  ...regionAttractions.map((attraction) => 
+                  ...regionAttractions.map((area) => 
                     AttractionCard(
-                      attraction: attraction,
+                      attraction: area,
                       onSelected: (selected) {
-                        if (selected) {
-                          ref.read(selectedAttractionsProvider.notifier)
-                            .addAttraction(attraction);
-                        } else {
-                          ref.read(selectedAttractionsProvider.notifier)
-                            .removeAttraction(attraction);
-                        }
+                        // Handle selection
                       },
                     ),
-                  ),
-                  const Divider(height: 32),
+                  ).toList(),
                 ],
               );
             },

@@ -21,36 +21,42 @@ class TravelRepositoryImpl implements TravelRepository {
         data: {'destination': destination},
       );
 
-      // Extract the deeply nested research data
-      final Map<String, dynamic> responseData = response.data;
-      final researchData = responseData['data']['research']['data']['research']['data']['research'];
+      final responseData = response.data as Map<String, dynamic>;
       
-      // Create the model data with the correct structure
-      final modelData = {
-        'error': false,
-        'data': {
-          'research': {
-            'destination': destination,
-            'data': {
-              'research': researchData
-            }
-          }
-        }
-      };
+      if (!responseData.containsKey('error') || !responseData.containsKey('data')) {
+        throw Exception('Invalid response structure');
+      }
 
-      print('Research data before parsing:');
-      print('Raw research data: $researchData');
-      
-      final researchModel = ResearchModel.fromJson(modelData);
-      
-      print('Research model created:');
-      print('Number of regions: ${researchModel.data.research.data.research.regions.length}');
-      
-      return researchModel;
-    } catch (e, stackTrace) {
+      return ResearchModel.fromJson(responseData);
+    } catch (e) {
       print('Error in getDestinationResearch: $e');
-      print('Stack trace: $stackTrace');
-      throw Exception('Failed to get destination research: $e');
+      return ResearchModel(
+        error: true,
+        data: ResearchData(
+          research: ResearchContent(
+            error: true,
+            destination: destination,
+            data: ResearchDetails(
+              coreInfo: CoreInfo(
+                description: 'Error occurred',
+                bestTimeToVisit: '',
+                mainAreas: [],
+                transportation: Transportation(
+                  method: '',
+                  duration: '',
+                  cost: '',
+                  frequency: '',
+                ),
+              ),
+              research: ResearchInfo(
+                entryPoints: [],
+                regions: [],
+                attractions: {},
+              ),
+            ),
+          ),
+        ),
+      );
     }
   }
 

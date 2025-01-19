@@ -4,6 +4,21 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'research_model.freezed.dart';
 part 'research_model.g.dart';
 
+@Freezed(genericArgumentFactories: true)
+class ApiResponse<T> with _$ApiResponse<T> {
+  const factory ApiResponse({
+    required bool error,
+    required T? data,
+    String? message,
+  }) = _ApiResponse;
+
+  factory ApiResponse.fromJson(
+    Map<String, dynamic> json,
+    T Function(Object?) fromJsonT,
+  ) =>
+      _$ApiResponseFromJson(json, fromJsonT);
+}
+
 @freezed
 class ResearchModel with _$ResearchModel {
   const factory ResearchModel({
@@ -28,8 +43,8 @@ class ResearchData with _$ResearchData {
 @freezed
 class ResearchContent with _$ResearchContent {
   const factory ResearchContent({
-    required String destination,
-    required ResearchDetails data,
+    required bool error,
+    ResearchDetails? data,
   }) = _ResearchContent;
 
   factory ResearchContent.fromJson(Map<String, dynamic> json) =>
@@ -39,12 +54,63 @@ class ResearchContent with _$ResearchContent {
 @freezed
 class ResearchDetails with _$ResearchDetails {
   const factory ResearchDetails({
-    @JsonKey(fromJson: _researchFromJson, toJson: _researchToJson)
-    required ResearchInfo research,
+    required String destination,
+    required CoreInfoData data,
   }) = _ResearchDetails;
 
   factory ResearchDetails.fromJson(Map<String, dynamic> json) =>
       _$ResearchDetailsFromJson(json);
+}
+
+@freezed
+class CoreInfoData with _$CoreInfoData {
+  const factory CoreInfoData({
+    @JsonKey(name: 'core_info')
+    required CoreInfo coreInfo,
+  }) = _CoreInfoData;
+
+  factory CoreInfoData.fromJson(Map<String, dynamic> json) =>
+      _$CoreInfoDataFromJson(json);
+}
+
+@freezed
+class CoreInfo with _$CoreInfo {
+  const factory CoreInfo({
+    required String description,
+    @JsonKey(name: 'best_time_to_visit')
+    required String bestTimeToVisit,
+    @JsonKey(name: 'main_areas')
+    required List<MainArea> mainAreas,
+    required Transportation transportation,
+  }) = _CoreInfo;
+
+  factory CoreInfo.fromJson(Map<String, dynamic> json) =>
+      _$CoreInfoFromJson(json);
+}
+
+@freezed
+class MainArea with _$MainArea {
+  const factory MainArea({
+    required String name,
+    required String description,
+    required List<String> highlights,
+  }) = _MainArea;
+
+  factory MainArea.fromJson(Map<String, dynamic> json) =>
+      _$MainAreaFromJson(json);
+}
+
+@freezed
+class Transportation with _$Transportation {
+  const factory Transportation({
+    @JsonKey(name: 'getting_there')
+    required String gettingThere,
+    @JsonKey(name: 'getting_around')
+    required String gettingAround,
+  }) = _Transportation;
+
+  factory Transportation.fromJson(Map<String, dynamic> json) =>
+      _$TransportationFromJson(json);
 }
 
 ResearchInfo _researchFromJson(Map<String, dynamic> json) {
@@ -121,19 +187,6 @@ class EntryPoint with _$EntryPoint {
 
   factory EntryPoint.fromJson(Map<String, dynamic> json) =>
       _$EntryPointFromJson(json);
-}
-
-@freezed
-class Transportation with _$Transportation {
-  const factory Transportation({
-    required String method,
-    required String duration,
-    required String cost,
-    required String frequency,
-  }) = _Transportation;
-
-  factory Transportation.fromJson(Map<String, dynamic> json) =>
-      _$TransportationFromJson(json);
 }
 
 @freezed

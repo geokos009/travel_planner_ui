@@ -363,15 +363,12 @@ DayPlan _$DayPlanFromJson(Map<String, dynamic> json) {
 mixin _$DayPlan {
   int get day => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
-  @JsonKey(name: 'base_location')
-  String get baseLocation => throw _privateConstructorUsedError;
-  @JsonKey(name: 'travel_day')
-  bool get travelDay => throw _privateConstructorUsedError;
   List<Activity> get activities => throw _privateConstructorUsedError;
-  Accommodation? get accommodation => throw _privateConstructorUsedError;
+  Accommodation get accommodation => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_cost_estimate')
   String get totalCostEstimate => throw _privateConstructorUsedError;
   List<String> get notes => throw _privateConstructorUsedError;
+  String get baseLocation => throw _privateConstructorUsedError;
 
   /// Serializes this DayPlan to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -390,14 +387,13 @@ abstract class $DayPlanCopyWith<$Res> {
   $Res call(
       {int day,
       String date,
-      @JsonKey(name: 'base_location') String baseLocation,
-      @JsonKey(name: 'travel_day') bool travelDay,
       List<Activity> activities,
-      Accommodation? accommodation,
+      Accommodation accommodation,
       @JsonKey(name: 'total_cost_estimate') String totalCostEstimate,
-      List<String> notes});
+      List<String> notes,
+      String baseLocation});
 
-  $AccommodationCopyWith<$Res>? get accommodation;
+  $AccommodationCopyWith<$Res> get accommodation;
 }
 
 /// @nodoc
@@ -417,12 +413,11 @@ class _$DayPlanCopyWithImpl<$Res, $Val extends DayPlan>
   $Res call({
     Object? day = null,
     Object? date = null,
-    Object? baseLocation = null,
-    Object? travelDay = null,
     Object? activities = null,
-    Object? accommodation = freezed,
+    Object? accommodation = null,
     Object? totalCostEstimate = null,
     Object? notes = null,
+    Object? baseLocation = null,
   }) {
     return _then(_value.copyWith(
       day: null == day
@@ -433,22 +428,14 @@ class _$DayPlanCopyWithImpl<$Res, $Val extends DayPlan>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String,
-      baseLocation: null == baseLocation
-          ? _value.baseLocation
-          : baseLocation // ignore: cast_nullable_to_non_nullable
-              as String,
-      travelDay: null == travelDay
-          ? _value.travelDay
-          : travelDay // ignore: cast_nullable_to_non_nullable
-              as bool,
       activities: null == activities
           ? _value.activities
           : activities // ignore: cast_nullable_to_non_nullable
               as List<Activity>,
-      accommodation: freezed == accommodation
+      accommodation: null == accommodation
           ? _value.accommodation
           : accommodation // ignore: cast_nullable_to_non_nullable
-              as Accommodation?,
+              as Accommodation,
       totalCostEstimate: null == totalCostEstimate
           ? _value.totalCostEstimate
           : totalCostEstimate // ignore: cast_nullable_to_non_nullable
@@ -457,6 +444,10 @@ class _$DayPlanCopyWithImpl<$Res, $Val extends DayPlan>
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      baseLocation: null == baseLocation
+          ? _value.baseLocation
+          : baseLocation // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -464,12 +455,8 @@ class _$DayPlanCopyWithImpl<$Res, $Val extends DayPlan>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $AccommodationCopyWith<$Res>? get accommodation {
-    if (_value.accommodation == null) {
-      return null;
-    }
-
-    return $AccommodationCopyWith<$Res>(_value.accommodation!, (value) {
+  $AccommodationCopyWith<$Res> get accommodation {
+    return $AccommodationCopyWith<$Res>(_value.accommodation, (value) {
       return _then(_value.copyWith(accommodation: value) as $Val);
     });
   }
@@ -485,15 +472,14 @@ abstract class _$$DayPlanImplCopyWith<$Res> implements $DayPlanCopyWith<$Res> {
   $Res call(
       {int day,
       String date,
-      @JsonKey(name: 'base_location') String baseLocation,
-      @JsonKey(name: 'travel_day') bool travelDay,
       List<Activity> activities,
-      Accommodation? accommodation,
+      Accommodation accommodation,
       @JsonKey(name: 'total_cost_estimate') String totalCostEstimate,
-      List<String> notes});
+      List<String> notes,
+      String baseLocation});
 
   @override
-  $AccommodationCopyWith<$Res>? get accommodation;
+  $AccommodationCopyWith<$Res> get accommodation;
 }
 
 /// @nodoc
@@ -511,12 +497,11 @@ class __$$DayPlanImplCopyWithImpl<$Res>
   $Res call({
     Object? day = null,
     Object? date = null,
-    Object? baseLocation = null,
-    Object? travelDay = null,
     Object? activities = null,
-    Object? accommodation = freezed,
+    Object? accommodation = null,
     Object? totalCostEstimate = null,
     Object? notes = null,
+    Object? baseLocation = null,
   }) {
     return _then(_$DayPlanImpl(
       day: null == day
@@ -527,22 +512,14 @@ class __$$DayPlanImplCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String,
-      baseLocation: null == baseLocation
-          ? _value.baseLocation
-          : baseLocation // ignore: cast_nullable_to_non_nullable
-              as String,
-      travelDay: null == travelDay
-          ? _value.travelDay
-          : travelDay // ignore: cast_nullable_to_non_nullable
-              as bool,
       activities: null == activities
           ? _value._activities
           : activities // ignore: cast_nullable_to_non_nullable
               as List<Activity>,
-      accommodation: freezed == accommodation
+      accommodation: null == accommodation
           ? _value.accommodation
           : accommodation // ignore: cast_nullable_to_non_nullable
-              as Accommodation?,
+              as Accommodation,
       totalCostEstimate: null == totalCostEstimate
           ? _value.totalCostEstimate
           : totalCostEstimate // ignore: cast_nullable_to_non_nullable
@@ -551,6 +528,10 @@ class __$$DayPlanImplCopyWithImpl<$Res>
           ? _value._notes
           : notes // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      baseLocation: null == baseLocation
+          ? _value.baseLocation
+          : baseLocation // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -561,12 +542,11 @@ class _$DayPlanImpl implements _DayPlan {
   const _$DayPlanImpl(
       {required this.day,
       required this.date,
-      @JsonKey(name: 'base_location') required this.baseLocation,
-      @JsonKey(name: 'travel_day') required this.travelDay,
       required final List<Activity> activities,
-      this.accommodation,
+      required this.accommodation,
       @JsonKey(name: 'total_cost_estimate') required this.totalCostEstimate,
-      required final List<String> notes})
+      required final List<String> notes,
+      this.baseLocation = ''})
       : _activities = activities,
         _notes = notes;
 
@@ -577,12 +557,6 @@ class _$DayPlanImpl implements _DayPlan {
   final int day;
   @override
   final String date;
-  @override
-  @JsonKey(name: 'base_location')
-  final String baseLocation;
-  @override
-  @JsonKey(name: 'travel_day')
-  final bool travelDay;
   final List<Activity> _activities;
   @override
   List<Activity> get activities {
@@ -592,7 +566,7 @@ class _$DayPlanImpl implements _DayPlan {
   }
 
   @override
-  final Accommodation? accommodation;
+  final Accommodation accommodation;
   @override
   @JsonKey(name: 'total_cost_estimate')
   final String totalCostEstimate;
@@ -605,8 +579,12 @@ class _$DayPlanImpl implements _DayPlan {
   }
 
   @override
+  @JsonKey()
+  final String baseLocation;
+
+  @override
   String toString() {
-    return 'DayPlan(day: $day, date: $date, baseLocation: $baseLocation, travelDay: $travelDay, activities: $activities, accommodation: $accommodation, totalCostEstimate: $totalCostEstimate, notes: $notes)';
+    return 'DayPlan(day: $day, date: $date, activities: $activities, accommodation: $accommodation, totalCostEstimate: $totalCostEstimate, notes: $notes, baseLocation: $baseLocation)';
   }
 
   @override
@@ -616,17 +594,15 @@ class _$DayPlanImpl implements _DayPlan {
             other is _$DayPlanImpl &&
             (identical(other.day, day) || other.day == day) &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.baseLocation, baseLocation) ||
-                other.baseLocation == baseLocation) &&
-            (identical(other.travelDay, travelDay) ||
-                other.travelDay == travelDay) &&
             const DeepCollectionEquality()
                 .equals(other._activities, _activities) &&
             (identical(other.accommodation, accommodation) ||
                 other.accommodation == accommodation) &&
             (identical(other.totalCostEstimate, totalCostEstimate) ||
                 other.totalCostEstimate == totalCostEstimate) &&
-            const DeepCollectionEquality().equals(other._notes, _notes));
+            const DeepCollectionEquality().equals(other._notes, _notes) &&
+            (identical(other.baseLocation, baseLocation) ||
+                other.baseLocation == baseLocation));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -635,12 +611,11 @@ class _$DayPlanImpl implements _DayPlan {
       runtimeType,
       day,
       date,
-      baseLocation,
-      travelDay,
       const DeepCollectionEquality().hash(_activities),
       accommodation,
       totalCostEstimate,
-      const DeepCollectionEquality().hash(_notes));
+      const DeepCollectionEquality().hash(_notes),
+      baseLocation);
 
   /// Create a copy of DayPlan
   /// with the given fields replaced by the non-null parameter values.
@@ -662,13 +637,12 @@ abstract class _DayPlan implements DayPlan {
   const factory _DayPlan(
       {required final int day,
       required final String date,
-      @JsonKey(name: 'base_location') required final String baseLocation,
-      @JsonKey(name: 'travel_day') required final bool travelDay,
       required final List<Activity> activities,
-      final Accommodation? accommodation,
+      required final Accommodation accommodation,
       @JsonKey(name: 'total_cost_estimate')
       required final String totalCostEstimate,
-      required final List<String> notes}) = _$DayPlanImpl;
+      required final List<String> notes,
+      final String baseLocation}) = _$DayPlanImpl;
 
   factory _DayPlan.fromJson(Map<String, dynamic> json) = _$DayPlanImpl.fromJson;
 
@@ -677,20 +651,16 @@ abstract class _DayPlan implements DayPlan {
   @override
   String get date;
   @override
-  @JsonKey(name: 'base_location')
-  String get baseLocation;
-  @override
-  @JsonKey(name: 'travel_day')
-  bool get travelDay;
-  @override
   List<Activity> get activities;
   @override
-  Accommodation? get accommodation;
+  Accommodation get accommodation;
   @override
   @JsonKey(name: 'total_cost_estimate')
   String get totalCostEstimate;
   @override
   List<String> get notes;
+  @override
+  String get baseLocation;
 
   /// Create a copy of DayPlan
   /// with the given fields replaced by the non-null parameter values.

@@ -18,7 +18,7 @@ _$UserPreferencesImpl _$$UserPreferencesImplFromJson(
       entryPoint:
           EntryPoint.fromJson(json['entry_point'] as Map<String, dynamic>),
       selectedAttractions: (json['selected_attractions'] as List<dynamic>)
-          .map((e) => Attraction.fromJson(e as Map<String, dynamic>))
+          .map((e) => SelectedAttraction.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

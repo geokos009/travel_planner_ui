@@ -22,31 +22,37 @@ class ApiClient {
 
   Future<Response> post(String path, {dynamic data}) async {
     try {
-      print('Making request to: ${_dio.options.baseUrl}$path');
-      print('Request data: $data');
-      
       final response = await _dio.post(
         path, 
         data: data,
         options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+          },
           sendTimeout: ApiConfig.sendTimeout,
           receiveTimeout: ApiConfig.receiveTimeout,
         ),
       );
       
-      print('Response received');
-      print('Status code: ${response.statusCode}');
-      print('Response data: ${response.data}');
-      
+      // Validate response structure
+      if (response.data is! Map<String, dynamic>) {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          error: 'Invalid response format',
+        );
+      }
+
       return response;
     } on DioException catch (e) {
-      print('DioError: ${e.message}');
-      print('Response: ${e.response?.data}');
-      print('Error type: ${e.type}');
-      rethrow;
-    } catch (e) {
-      print('Error: $e');
-      rethrow;
+      // Return error response in our standard format
+      return Response(
+        requestOptions: e.requestOptions,
+        data: {
+          'error': true,
+          'data': null,
+          'message': e.message,
+        },
+      );
     }
   }
 

@@ -1,4 +1,4 @@
-// lib/data/models/itinerary_model.freezed.dart
+// lib/data/models/itinerary_model.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'activity_model.dart';
 import 'accommodation_model.dart';
@@ -32,12 +32,12 @@ class DayPlan with _$DayPlan {
   const factory DayPlan({
     required int day,
     required String date,
-    @JsonKey(name: 'base_location') required String baseLocation,
-    @JsonKey(name: 'travel_day') required bool travelDay,
     required List<Activity> activities,
-    Accommodation? accommodation,
-    @JsonKey(name: 'total_cost_estimate') required String totalCostEstimate,
+    required Accommodation accommodation,
+    @JsonKey(name: 'total_cost_estimate')
+    required String totalCostEstimate,
     required List<String> notes,
+    @Default('') String baseLocation,
   }) = _DayPlan;
 
   factory DayPlan.fromJson(Map<String, dynamic> json) =>
